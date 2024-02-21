@@ -40,7 +40,7 @@ def compare_cves_from_map(map_of_cves):
 
 
 def compare_cves_from_list(list_of_cves, starting_position):
-    similarity_list = []
+    res_file = open("results.json", "a")
 
     # Now you can iterate over the list by index
     for i in range(starting_position, len(list_of_cves)):
@@ -66,29 +66,31 @@ def compare_cves_from_list(list_of_cves, starting_position):
 
             if percent_similarity >= tolerance:
                 similarity_key = f"{key}//{comparison_key}"
-                similarity_list.append((similarity_key, percent_similarity))
+                res_file.write(f"({similarity_key}, {percent_similarity})\n")
 
                 print(f"Checking for similarities of {similarity_key}...   Found significant similarities.")
             else:
                 print(f"Checking for similarities of {key}//{comparison_key}...   Not similar enough.")
 
-            print(similarity_list)
-
         print('COMPLETE')
+
+    res_file.close()
 
 
 tolerance = 0.75  # update value with preferred tolerance level
 
 file_name = "clean_cves_list_2014_2024.json"
 
-# cleansed_cves_file = open(file_name, 'r')
-# json_data = json.load(cleansed_cves_file)
-# cleansed_cves_file.close()
-#
-# compare_cves_from_map(json_data)
-
 cleansed_cves_file = open(file_name, 'r')
 json_data = json.load(cleansed_cves_file)
 cleansed_cves_file.close()
 
-compare_cves_from_list(json_data, 164)
+results_file = open("results.json", "w")
+results_file.write("[\n")
+results_file.close()
+
+compare_cves_from_list(json_data, 0)
+
+results_file = open("results.json", "a")
+results_file.write("]")
+results_file.close()
