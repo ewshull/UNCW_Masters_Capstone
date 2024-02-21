@@ -66,7 +66,7 @@ def compare_cves_from_list(list_of_cves, starting_position):
 
             if percent_similarity >= tolerance:
                 similarity_key = f"{key}//{comparison_key}"
-                res_file.write(f"({similarity_key}, {percent_similarity})\n")
+                res_file.write(f"(\'{similarity_key}\', {percent_similarity})\n")
 
                 print(f"Checking for similarities of {similarity_key}...   Found significant similarities.")
             else:
