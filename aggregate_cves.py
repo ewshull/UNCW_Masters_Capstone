@@ -6,7 +6,7 @@ from unidecode import unidecode
 
 
 def cleanse_data(file_open_type):
-    raw_file = open("cves.json", 'r')
+    raw_file = open("oldFiles/cves.json", 'r')
     raw_data = json.load(raw_file)
     raw_file.close()
 
@@ -40,7 +40,7 @@ status_code = 200
 
 while status_code == 200:
     # write (or overwrite) file contents
-    original_file = open("cves.json", "w")
+    original_file = open("oldFiles/cves.json", "w")
 
     url = "https://services.nvd.nist.gov/rest/json/cves/2.0?noRejected&startIndex=" + str(offset)
 
