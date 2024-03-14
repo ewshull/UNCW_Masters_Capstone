@@ -48,8 +48,13 @@ all_sets_split = compute_intersection(json_data)
 batch_size = 1000
 num_records = len(all_sets_split.keys())
 
+total_records = 0
 for start in range(0, num_records, batch_size):
     end = min(start + batch_size, num_records)
     result = compare_cves_from_list(json_data, all_sets_split, start, end, tolerance)
     with open(f"results_rows_{start}_{end}.json", "w") as res_file:
         json.dump(result, res_file)
+
+    total_records += len(result)
+
+print(f"Total similarities found: {total_records}")
